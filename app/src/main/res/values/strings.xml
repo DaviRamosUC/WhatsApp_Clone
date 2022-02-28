@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WhatsApp</string>
+    <string name="email_login">Digite seu email</string>
+    <string name="senha_login">Digite sua senha</string>
+    <string name="semConta_login">Não tem conta? Cadastre-se</string>
+    <string name="logar_login">Logar</string>
+</resources>
