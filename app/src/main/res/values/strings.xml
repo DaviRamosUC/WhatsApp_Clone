@@ -4,4 +4,7 @@
     <string name="senha_login">Digite sua senha</string>
     <string name="semConta_login">Não tem conta? Cadastre-se</string>
     <string name="logar_login">Logar</string>
+    <string name="digite_seu_nome_cadastro">Digite seu nome</string>
+    <string name="cadastrar_cadastro">Cadastrar</string>
+    <string name="cadastrar_image">Icone de user plus</string>
 </resources>

@@ -6,83 +6,79 @@
     android:layout_height="match_parent"
     android:background="@color/primaryColor"
     android:padding="@dimen/padding_40"
-    tools:context=".activity.LoginActivity">
+    tools:context=".activity.CadastroActivity">
 
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/image_usuario"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginBottom="@dimen/margin_20"
-        android:contentDescription="@string/app_name"
-        app:layout_constraintBottom_toTopOf="@+id/textInputEmail"
+        android:contentDescription="@string/cadastrar_image"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/usuario" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputEmail"
+        android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_20"
-        app:layout_constraintBottom_toTopOf="@+id/textInputSenha"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo">
+        app:layout_constraintTop_toBottomOf="@+id/image_usuario">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editEmail"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:backgroundTint="@null"
-            android:hint="@string/email_login"
-            android:inputType="textEmailAddress"/>
+            android:hint="@string/digite_seu_nome_cadastro" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputSenha"
+        android:id="@+id/textInputLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_20"
-        app:layout_constraintBottom_toTopOf="@+id/buttonLogar"
-        app:layout_constraintTop_toBottomOf="@+id/textInputEmail"
-        tools:layout_editor_absoluteX="40dp">
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        tools:layout_editor_absoluteX="1dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editSenha"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/email_login"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
+        tools:layout_editor_absoluteX="1dp">
+
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:hint="@string/senha_login"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/buttonLogar"
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_10"
         android:background="@color/primaryDarkColor"
-        android:textColor="@color/white"
-        android:text="@string/logar_login"
-        app:layout_constraintBottom_toTopOf="@+id/cadastroTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputSenha" />
-
-    <TextView
-        android:id="@+id/cadastroTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/semConta_login"
+        android:text="@string/cadastrar_cadastro"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLogar" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
+        tools:layout_editor_absoluteX="158dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
