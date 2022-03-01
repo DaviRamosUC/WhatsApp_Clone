@@ -30,8 +30,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupTabLayout() {
-        val tabLayout = binding.toolbar.tabLayout
-        val viewPager = binding.toolbar.viewPager
+        val tabLayout = binding.tabLayout
+        val viewPager = binding.viewPager
 
         viewPager.adapter = FragmentAdapter(this)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
@@ -54,6 +54,10 @@ class MainActivity : AppCompatActivity() {
                 deslogarUsuario()
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
+            }
+
+            R.id.menuConfiguracoes -> {
+                startActivity(Intent(this, ConfiguracoesActivity::class.java))
             }
 
         }
