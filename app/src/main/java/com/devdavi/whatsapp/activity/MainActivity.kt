@@ -7,8 +7,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.devdavi.whatsapp.R
+import com.devdavi.whatsapp.adapter.FragmentAdapter
 import com.devdavi.whatsapp.databinding.ActivityMainBinding
 import com.devdavi.whatsapp.utils.FirebaseConfig
+import com.google.android.material.tabs.TabLayoutMediator
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +23,23 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar.toolbarPrincipal)
+
+//        Adicionando TabLayout a tela e setando o viewPager com adapter
+        setupTabLayout()
+
+    }
+
+    private fun setupTabLayout() {
+        val tabLayout = binding.toolbar.tabLayout
+        val viewPager = binding.toolbar.viewPager
+
+        viewPager.adapter = FragmentAdapter(this)
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            when (position) {
+                0 -> tab.text = "Conversas"
+                else -> tab.text = "Contatos"
+            }
+        }.attach()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
