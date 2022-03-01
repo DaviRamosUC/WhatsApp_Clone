@@ -7,4 +7,9 @@
     <string name="digite_seu_nome_cadastro">Digite seu nome</string>
     <string name="cadastrar_cadastro">Cadastrar</string>
     <string name="cadastrar_image">Icone de user plus</string>
+    <string name="pesquisar_menu">Pesquisar</string>
+    <string name="configuracoes_menu">Configurações</string>
+    <string name="sair_menu">Sair</string>
+    <string name="conversas_toolbar">Conversas</string>
+    <string name="contatos_toolbar">Contatos</string>
 </resources>

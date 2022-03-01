@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menuPesquisa"
+        android:icon="@drawable/ic_pesquisa_branco_24"
+        android:title="@string/pesquisar_menu"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menuConfiguracoes"
+        android:title="@string/configuracoes_menu"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menuSair"
+        android:title="@string/sair_menu"
+        app:showAsAction="never" />
+</menu>
