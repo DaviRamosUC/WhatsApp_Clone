@@ -39,7 +39,7 @@
             android:layout_height="48dp"
             android:backgroundTint="@null"
             android:hint="@string/email_login"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:hint="@string/senha_login"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -65,8 +65,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_10"
         android:background="@color/primaryDarkColor"
-        android:textColor="@color/white"
+        android:onClick="realizaLogin"
         android:text="@string/logar_login"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/cadastroTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
