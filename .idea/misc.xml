@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/workspaces/ws-android/WhatsApp/app/src/main/res/layout-v21/toolbar.xml" value="0.1648148148148148" />
         <entry key="..\:/workspaces/ws-android/WhatsApp/app/src/main/res/layout/activity_cadastro.xml" value="0.33" />
         <entry key="..\:/workspaces/ws-android/WhatsApp/app/src/main/res/layout/activity_login.xml" value="0.225" />
         <entry key="..\:/workspaces/ws-android/WhatsApp/app/src/main/res/layout/activity_main.xml" value="0.225" />
+        <entry key="..\:/workspaces/ws-android/WhatsApp/app/src/main/res/layout/toolbar.xml" value="0.225" />
       </map>
     </option>
   </component>
