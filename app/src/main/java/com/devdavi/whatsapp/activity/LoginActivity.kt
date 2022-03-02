@@ -23,12 +23,15 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if(autenticacao.currentUser != null){
-            abrirTelaPrincipal()
-        }
-
         binding.cadastroTextView.setOnClickListener {
             startActivity(Intent(this, CadastroActivity::class.java))
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (autenticacao.currentUser != null) {
+            abrirTelaPrincipal()
         }
     }
 

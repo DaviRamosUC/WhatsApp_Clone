@@ -9,6 +9,7 @@ import com.devdavi.whatsapp.R
 import com.devdavi.whatsapp.databinding.ActivityCadastroBinding
 import com.devdavi.whatsapp.databinding.ActivityLoginBinding
 import com.devdavi.whatsapp.model.Usuario
+import com.devdavi.whatsapp.utils.Base64Custom
 import com.devdavi.whatsapp.utils.FirebaseConfig
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -19,13 +20,12 @@ class CadastroActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCadastroBinding
     private var autenticacao = FirebaseConfig.autenticacao
-    private var databaseReferece = FirebaseConfig.database.reference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCadastroBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
     }
 
@@ -35,9 +35,18 @@ class CadastroActivity : AppCompatActivity() {
         val senhaUsuario: String = binding.editSenhaCadastro.text.toString()
 
         if (verificaCampos(nomeUsuario, emailUsuario, senhaUsuario)) {
-            val usuario = Usuario(nomeUsuario, emailUsuario, senhaUsuario)
+            val usuario = Usuario(null, nomeUsuario, emailUsuario, senhaUsuario)
             autenticacao.createUserWithEmailAndPassword(usuario.email, usuario.senha)
                 .addOnSuccessListener {
+                    try {
+                        val identificadorUsuario: String =
+                            Base64Custom.codificarBase64(usuario.email)
+                        usuario.id = identificadorUsuario
+                        usuario.salvar()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+
                     Toast.makeText(this, "Sucesso ao cadastrar o usuário", Toast.LENGTH_LONG).show()
                     finish()
                 }.addOnFailureListener {
