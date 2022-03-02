@@ -5,4 +5,5 @@
     <color name="primaryDarkColor">#054d44</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="cinza_claro">#EEEEEE</color>
 </resources>
