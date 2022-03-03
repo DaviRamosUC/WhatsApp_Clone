@@ -1,20 +1,16 @@
 package com.devdavi.whatsapp.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.devdavi.whatsapp.R
+import androidx.appcompat.app.AppCompatActivity
 import com.devdavi.whatsapp.databinding.ActivityCadastroBinding
-import com.devdavi.whatsapp.databinding.ActivityLoginBinding
 import com.devdavi.whatsapp.model.Usuario
 import com.devdavi.whatsapp.utils.Base64Custom
 import com.devdavi.whatsapp.utils.FirebaseConfig
-import com.google.firebase.auth.FirebaseAuth
+import com.devdavi.whatsapp.utils.Helpers
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
-import java.lang.Exception
 
 class CadastroActivity : AppCompatActivity() {
 
@@ -43,12 +39,14 @@ class CadastroActivity : AppCompatActivity() {
                             Base64Custom.codificarBase64(usuario.email)
                         usuario.id = identificadorUsuario
                         usuario.salvar()
+                        Toast.makeText(this, "Sucesso ao cadastrar o usuário", Toast.LENGTH_LONG)
+                            .show()
+                        Helpers.atualizarNomeUsuario(usuario.nome!!)
+                        finish()
                     } catch (e: Exception) {
                         e.printStackTrace()
+                        Toast.makeText(this, "Houve um erro inesperado", Toast.LENGTH_LONG).show()
                     }
-
-                    Toast.makeText(this, "Sucesso ao cadastrar o usuário", Toast.LENGTH_LONG).show()
-                    finish()
                 }.addOnFailureListener {
                     val excecao: String
                     try {
