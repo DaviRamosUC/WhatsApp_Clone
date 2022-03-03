@@ -1,10 +1,16 @@
 package com.devdavi.whatsapp.activity
 
 import android.Manifest
+import android.app.Activity
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
+import android.view.View
+import android.widget.ImageButton
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import com.devdavi.whatsapp.databinding.ActivityConfiguracoesBinding
 import com.devdavi.whatsapp.utils.Permissao
@@ -31,6 +37,23 @@ class ConfiguracoesActivity : AppCompatActivity() {
         é necessário configurar a activity mother desta
         ou seja -> a MainActivity é mãe da Configurações activity */
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        var resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val data: Intent? = result.data
+
+                }
+            }
+
+        binding.imageButtonCamera.setOnClickListener {
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            if (intent.resolveActivity(packageManager) != null)
+                resultLauncher.launch(intent)
+        }
+        binding.imageButtonGaleria.setOnClickListener {
+
+        }
     }
 
     override fun onRequestPermissionsResult(
