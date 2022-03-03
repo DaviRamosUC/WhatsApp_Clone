@@ -14,7 +14,7 @@
         android:layout_height="wrap_content" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/shapeableImageView"
+        android:id="@+id/ImageViewUsuario"
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:layout_marginLeft="8dp"
@@ -27,7 +27,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_chainStyle="packed"
-        app:shapeAppearanceOverlay="@style/Circular" />
+        app:shapeAppearanceOverlay="@style/Circular"
+        tools:ignore="ImageContrastCheck" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -44,7 +45,7 @@
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shapeableImageView">
+        app:layout_constraintTop_toBottomOf="@+id/ImageViewUsuario">
 
         <EditText
             android:id="@+id/editTextTextPersonName"
@@ -54,7 +55,8 @@
             android:ems="10"
             android:hint="@string/hint_nome_usuario"
             android:inputType="textPersonName"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            tools:ignore="TextContrastCheck" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -75,31 +77,38 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:ignore="TextContrastCheck" />
 
     <ImageButton
         android:id="@+id/imageButtonGaleria"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView"
+        android:contentDescription="@string/icon_galeria"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ImageViewUsuario"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imageButtonCamera"
-        app:layout_constraintTop_toTopOf="@+id/shapeableImageView"
+        app:layout_constraintTop_toTopOf="@+id/ImageViewUsuario"
         app:layout_constraintVertical_bias="0.93"
-        app:srcCompat="@drawable/ic_foto_cinza_24" />
+        app:srcCompat="@drawable/ic_foto_cinza_24"
+        tools:ignore="ImageContrastCheck" />
 
     <ImageButton
         android:id="@+id/imageButtonCamera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView"
+        android:contentDescription="@string/icon_camera"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ImageViewUsuario"
         app:layout_constraintEnd_toStartOf="@+id/imageButtonGaleria"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/shapeableImageView"
+        app:layout_constraintTop_toTopOf="@+id/ImageViewUsuario"
         app:layout_constraintVertical_bias="0.93"
-        app:srcCompat="@drawable/ic_camera_cinza_24" />
+        app:srcCompat="@drawable/ic_camera_cinza_24"
+        tools:ignore="ImageContrastCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

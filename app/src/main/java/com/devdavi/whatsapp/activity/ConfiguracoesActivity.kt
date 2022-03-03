@@ -2,18 +2,21 @@ package com.devdavi.whatsapp.activity
 
 import android.Manifest
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.View
-import android.widget.ImageButton
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import com.devdavi.whatsapp.databinding.ActivityConfiguracoesBinding
 import com.devdavi.whatsapp.utils.Permissao
+import java.lang.Exception
 
 class ConfiguracoesActivity : AppCompatActivity() {
 
@@ -38,21 +41,51 @@ class ConfiguracoesActivity : AppCompatActivity() {
         ou seja -> a MainActivity é mãe da Configurações activity */
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        var resultLauncher =
+        val resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
                     val data: Intent? = result.data
-
+                    val imagem: Bitmap?
+                    try {
+                        if (data?.data != null) {
+                            val localImagemSelecionada = data.data
+                            imagem = when {
+                                Build.VERSION.SDK_INT < 28 -> MediaStore.Images.Media.getBitmap(
+                                    this.contentResolver,
+                                    localImagemSelecionada
+                                )
+                                else -> {
+                                    val source = ImageDecoder.createSource(
+                                        this.contentResolver,
+                                        localImagemSelecionada!!
+                                    )
+                                    ImageDecoder.decodeBitmap(source)
+                                }
+                            }
+                        } else {
+                            imagem = result.data?.extras?.get("data") as Bitmap
+                        }
+                        if (imagem != null) this.binding.ImageViewUsuario.setImageBitmap(imagem)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
             }
 
         binding.imageButtonCamera.setOnClickListener {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            if (intent.resolveActivity(packageManager) != null)
-                resultLauncher.launch(intent)
+            packageManager?.let {
+                if (intent.resolveActivity(it) != null)
+                    resultLauncher.launch(intent)
+            }
+
         }
         binding.imageButtonGaleria.setOnClickListener {
-
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            packageManager?.let {
+                if (intent.resolveActivity(it) != null)
+                    resultLauncher.launch(intent)
+            }
         }
     }
 

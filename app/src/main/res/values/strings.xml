@@ -15,4 +15,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hint_nome_usuario">Nome do usuário</string>
     <string name="mensagem_config">Este não é o seu nome de usuário nem sua senha. \n Esse nome ficará visível para seus contatos do WhatsApp</string>
+    <string name="icon_galeria">icone de galeria</string>
+    <string name="icon_camera">Icone de camera</string>
 </resources>
