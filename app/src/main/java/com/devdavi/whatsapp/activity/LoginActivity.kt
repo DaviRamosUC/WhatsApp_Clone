@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
         val senhaUsuario: String = binding.editSenha.text.toString()
         if (verificaCampos(emailUsuario, senhaUsuario)) {
             val usuario = Usuario(emailUsuario, senhaUsuario)
-            autenticacao.signInWithEmailAndPassword(usuario.email, usuario.senha)
+            autenticacao.signInWithEmailAndPassword(usuario.email!!, usuario.senha!!)
                 .addOnSuccessListener {
                     abrirTelaPrincipal()
                 }

@@ -2,6 +2,7 @@ package com.devdavi.whatsapp.utils
 
 import android.net.Uri
 import android.util.Log
+import com.devdavi.whatsapp.model.Usuario
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
@@ -10,7 +11,7 @@ import java.lang.Exception
 object Helpers {
 
     fun getIdentificadoUsuario(): String {
-        var resultado: String = ""
+        var resultado = ""
         if (FirebaseConfig.autenticacao.currentUser != null) {
             val email: String? = FirebaseConfig.autenticacao.currentUser?.email
             resultado = Base64Custom.codificarBase64(email!!)
@@ -55,5 +56,21 @@ object Helpers {
             e.printStackTrace()
             return false
         }
+    }
+
+    fun getDadosUsuarioLogado(): Usuario {
+        val firebaseUser: FirebaseUser? = getUsuarioAtual()
+        val usuario = Usuario()
+        if (firebaseUser != null) {
+            usuario.email = firebaseUser.email
+            usuario.nome = firebaseUser.displayName
+            if (firebaseUser.photoUrl == null) {
+                usuario.foto = ""
+            } else {
+                usuario.foto = firebaseUser.photoUrl.toString()
+            }
+        }
+
+        return usuario
     }
 }

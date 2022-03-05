@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.devdavi.whatsapp.R
 import com.devdavi.whatsapp.databinding.ActivityConfiguracoesBinding
+import com.devdavi.whatsapp.model.Usuario
 import com.devdavi.whatsapp.utils.FirebaseConfig
 import com.devdavi.whatsapp.utils.Permissao
 import com.devdavi.whatsapp.utils.Helpers
@@ -34,16 +35,19 @@ class ConfiguracoesActivity : AppCompatActivity() {
         Manifest.permission.CAMERA
     )
     private val storage: StorageReference = FirebaseConfig.storage
+    private lateinit var usuarioLogado: Usuario
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityConfiguracoesBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        Permissao.validarPermissoes(permissoesNecessarias, this, 1)
 
         val toolbar = binding.toolbar.toolbarPrincipal
         toolbar.title = "Configurações"
         setSupportActionBar(toolbar)
+
+        Permissao.validarPermissoes(permissoesNecessarias, this, 1)
+        usuarioLogado = Helpers.getDadosUsuarioLogado()
 
         //Recuperar dados do usuário
         val usuario: FirebaseUser? = Helpers.getUsuarioAtual()
@@ -89,7 +93,7 @@ class ConfiguracoesActivity : AppCompatActivity() {
                         }
                         if (imagem != null) {
                             this.binding.ImageViewUsuario.setImageBitmap(imagem)
-                            val baos: ByteArrayOutputStream = ByteArrayOutputStream()
+                            val baos = ByteArrayOutputStream()
                             imagem.compress(Bitmap.CompressFormat.JPEG, 100, baos)
                             val dadosImagem = baos.toByteArray()
 
@@ -140,10 +144,30 @@ class ConfiguracoesActivity : AppCompatActivity() {
                     resultLauncher.launch(intent)
             }
         }
+
+        binding.imageAtualizarNome.setOnClickListener {
+            val nome = binding.editNomeUsuario.text.toString()
+            val retorno = Helpers.atualizarNomeUsuario(nome)
+            if (retorno) {
+                usuarioLogado.nome = nome
+                usuarioLogado.atualizar()
+                Toast.makeText(
+                    this,
+                    "Nome alterado com sucesso!",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
     }
 
     fun atualizaFotoUsuario(url: Uri?) {
-        Helpers.atualizarFotoUsuario(url!!)
+        val retorno = Helpers.atualizarFotoUsuario(url!!)
+        if (retorno) {
+            usuarioLogado.foto = url.toString()
+            usuarioLogado.atualizar()
+            Toast.makeText(this, "Sua foto foi alterada!", Toast.LENGTH_LONG)
+                .show()
+        }
     }
 
     override fun onRequestPermissionsResult(

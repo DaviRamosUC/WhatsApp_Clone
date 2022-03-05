@@ -31,12 +31,12 @@ class CadastroActivity : AppCompatActivity() {
         val senhaUsuario: String = binding.editSenhaCadastro.text.toString()
 
         if (verificaCampos(nomeUsuario, emailUsuario, senhaUsuario)) {
-            val usuario = Usuario(null, nomeUsuario, emailUsuario, senhaUsuario)
-            autenticacao.createUserWithEmailAndPassword(usuario.email, usuario.senha)
+            val usuario = Usuario(null, nomeUsuario, emailUsuario, senhaUsuario,null)
+            autenticacao.createUserWithEmailAndPassword(usuario.email!!, usuario.senha!!)
                 .addOnSuccessListener {
                     try {
                         val identificadorUsuario: String =
-                            Base64Custom.codificarBase64(usuario.email)
+                            Base64Custom.codificarBase64(usuario.email!!)
                         usuario.id = identificadorUsuario
                         usuario.salvar()
                         Toast.makeText(this, "Sucesso ao cadastrar o usuário", Toast.LENGTH_LONG)
