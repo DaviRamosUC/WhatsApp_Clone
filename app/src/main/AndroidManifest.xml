@@ -15,6 +15,7 @@
         </intent>
         <intent>
             <action android:name="android.intent.action.PICK" />
+
             <data android:mimeType="image/*" />
         </intent>
     </queries>
@@ -26,6 +27,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WhatsApp.NoActionBar">
+        <activity
+            android:name=".activity.ChatActivity"
+            android:exported="false"
+            android:label="@string/title_activity_chat"
+            android:parentActivityName=".activity.MainActivity"
+            android:theme="@style/Theme.WhatsApp.NoActionBar.NoActionBar" />
         <!-- Setando parentActivityName para habilitar a opção de voltar -->
         <activity
             android:name=".activity.ConfiguracoesActivity"

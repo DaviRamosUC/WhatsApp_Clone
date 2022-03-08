@@ -17,4 +17,14 @@
     <string name="mensagem_config">Este não é o seu nome de usuário nem sua senha. \n Esse nome ficará visível para seus contatos do WhatsApp</string>
     <string name="icon_galeria">icone de galeria</string>
     <string name="icon_camera">Icone de camera</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="contentDescription">Icon for fab</string>
 </resources>
