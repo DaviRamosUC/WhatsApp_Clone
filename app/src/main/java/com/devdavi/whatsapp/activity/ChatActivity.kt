@@ -2,18 +2,20 @@ package com.devdavi.whatsapp.activity
 
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.bumptech.glide.Glide
 import com.devdavi.whatsapp.R
 import com.devdavi.whatsapp.databinding.ActivityChatBinding
+import com.devdavi.whatsapp.model.Mensagem
 import com.devdavi.whatsapp.model.Usuario
+import com.devdavi.whatsapp.utils.Base64Custom
+import com.devdavi.whatsapp.utils.FirebaseConfig
+import com.devdavi.whatsapp.utils.Helpers
 import com.google.android.material.imageview.ShapeableImageView
-import com.google.android.material.snackbar.Snackbar
 
 class ChatActivity : AppCompatActivity() {
 
@@ -21,6 +23,12 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var textViewNome: TextView
     private lateinit var imageViewFoto: ShapeableImageView
     private lateinit var usuarioDestinatario: Usuario
+    private lateinit var editMensagem: EditText
+
+    //identificador usuarios remetente e destinatario
+    private lateinit var idUsuarioRementente: String
+    private lateinit var idUsuarioDestinatario: String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +42,11 @@ class ChatActivity : AppCompatActivity() {
         //Configuracoes iniciais
         textViewNome = binding.textViewNomeChat
         imageViewFoto = binding.circleImageFotoChat
+        editMensagem = binding.contentChat.editMensagem
+
+        //Recuperar id do usuário remetente
+        idUsuarioRementente = Helpers.getIdentificadoUsuario()
+
 
         //Recuperar dados do usuário destinatario
         val bundle = intent.extras
@@ -47,8 +60,34 @@ class ChatActivity : AppCompatActivity() {
             } else {
                 imageViewFoto.setImageResource(R.drawable.padrao)
             }
+            //Recuperar id do usuário destinatario
+            idUsuarioDestinatario = Base64Custom.codificarBase64(usuarioDestinatario.email!!)
 
         }
+    }
+
+    fun enviarMensagem(view: View) {
+        val textoMensagem = editMensagem.text.toString()
+        if (!textoMensagem.isEmpty()) {
+            val mensagem = Mensagem(idUsuarioRementente, textoMensagem, null)
+            //Salvar mensagem para o remetente
+            salvarMensagem(idUsuarioRementente, idUsuarioDestinatario, mensagem)
+            editMensagem.setText("")
+        } else {
+            Toast.makeText(
+                this,
+                "Digite uma mensagem para enviar",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
+    private fun salvarMensagem(idRementente: String, idDestinatario: String, mensagem: Mensagem) {
+        val database = FirebaseConfig.database.reference
+        val mensagemRef = database.child("mensagens")
+
+        mensagemRef.child(idRementente).child(idDestinatario).push().setValue(mensagem)
+
     }
 
 }

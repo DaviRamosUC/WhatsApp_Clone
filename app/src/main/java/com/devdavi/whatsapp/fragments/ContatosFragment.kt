@@ -61,7 +61,7 @@ class ContatosFragment : Fragment() {
                 recyclerView,
                 object : RecyclerItemClickListener.OnItemClickListener {
                     override fun onItemClick(view: View?, position: Int) {
-                        val usuarioSelecionado = listaContatos.get(position)
+                        val usuarioSelecionado = listaContatos[position]
                         val intent = Intent(activity, ChatActivity::class.java)
                         intent.putExtra("chatContato", usuarioSelecionado)
                         startActivity(intent)
@@ -83,17 +83,12 @@ class ContatosFragment : Fragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-
-    }
-
     override fun onStop() {
         super.onStop()
         usuariosRef.removeEventListener(valueEventListener)
     }
 
-    fun recuperarContatos() {
+    private fun recuperarContatos() {
         valueEventListener = usuariosRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (dados in snapshot.children) {
