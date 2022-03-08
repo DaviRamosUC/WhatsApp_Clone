@@ -7,8 +7,11 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.devdavi.whatsapp.R
+import com.devdavi.whatsapp.adapter.MensagensAdapter
 import com.devdavi.whatsapp.databinding.ActivityChatBinding
 import com.devdavi.whatsapp.model.Mensagem
 import com.devdavi.whatsapp.model.Usuario
@@ -29,6 +32,10 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var idUsuarioRementente: String
     private lateinit var idUsuarioDestinatario: String
 
+    private lateinit var recyclerMensagem: RecyclerView
+    private lateinit var adapter: MensagensAdapter
+    private val mensagens = ArrayList<Mensagem>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +50,7 @@ class ChatActivity : AppCompatActivity() {
         textViewNome = binding.textViewNomeChat
         imageViewFoto = binding.circleImageFotoChat
         editMensagem = binding.contentChat.editMensagem
+        recyclerMensagem = binding.contentChat.recyclerMensagens
 
         //Recuperar id do usuário remetente
         idUsuarioRementente = Helpers.getIdentificadoUsuario()
@@ -62,8 +70,16 @@ class ChatActivity : AppCompatActivity() {
             }
             //Recuperar id do usuário destinatario
             idUsuarioDestinatario = Base64Custom.codificarBase64(usuarioDestinatario.email!!)
-
         }
+
+        //Configuração adapter
+        adapter = MensagensAdapter(mensagens, applicationContext)
+
+        //Configuração recyclerview
+        val layoutManager = LinearLayoutManager(applicationContext)
+        recyclerMensagem.layoutManager = layoutManager
+        recyclerMensagem.setHasFixedSize(true)
+        recyclerMensagem.adapter = adapter
     }
 
     fun enviarMensagem(view: View) {
