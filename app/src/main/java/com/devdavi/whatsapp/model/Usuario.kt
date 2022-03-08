@@ -3,6 +3,7 @@ package com.devdavi.whatsapp.model
 import com.devdavi.whatsapp.utils.FirebaseConfig
 import com.devdavi.whatsapp.utils.Helpers
 import com.google.firebase.database.Exclude
+import java.io.Serializable
 import kotlin.collections.HashMap
 
 data class Usuario(
@@ -11,7 +12,7 @@ data class Usuario(
     var email: String?,
     @get:Exclude var senha: String?,
     var foto: String?
-) {
+) : Serializable {
     constructor() : this(null, null, null, null, null)
 
     constructor(emailUsuario: String, senhaUsuario: String) : this(

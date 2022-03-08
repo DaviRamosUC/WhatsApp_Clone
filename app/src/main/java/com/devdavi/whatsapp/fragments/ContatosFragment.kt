@@ -61,7 +61,10 @@ class ContatosFragment : Fragment() {
                 recyclerView,
                 object : RecyclerItemClickListener.OnItemClickListener {
                     override fun onItemClick(view: View?, position: Int) {
-                        startActivity(Intent(activity, ChatActivity::class.java))
+                        val usuarioSelecionado = listaContatos.get(position)
+                        val intent = Intent(activity, ChatActivity::class.java)
+                        intent.putExtra("chatContato", usuarioSelecionado)
+                        startActivity(intent)
                     }
 
                     override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
