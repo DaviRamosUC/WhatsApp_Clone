@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:text="@string/exemplo_de_mensagem"
             android:textSize="18sp"
+            android:textColor="@color/black"
             tools:ignore="TextContrastCheck" />
 
     </LinearLayout>

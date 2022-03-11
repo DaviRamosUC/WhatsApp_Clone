@@ -37,7 +37,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var childEventListenerMensagens: ChildEventListener
 
     //identificador usuarios remetente e destinatario
-    private lateinit var idUsuarioRementente: String
+    private lateinit var idUsuarioRemetente: String
     private lateinit var idUsuarioDestinatario: String
 
     private lateinit var recyclerMensagem: RecyclerView
@@ -61,7 +61,7 @@ class ChatActivity : AppCompatActivity() {
         recyclerMensagem = binding.contentChat.recyclerMensagens
 
         //Recuperar id do usuário remetente
-        idUsuarioRementente = Helpers.getIdentificadoUsuario()
+        idUsuarioRemetente = Helpers.getIdentificadoUsuario()
 
 
         //Recuperar dados do usuário destinatario
@@ -92,7 +92,7 @@ class ChatActivity : AppCompatActivity() {
         // Adicionando config para database
         database = FirebaseConfig.database.reference
         mensagensRef = database.child("mensagens")
-            .child(idUsuarioRementente)
+            .child(idUsuarioRemetente)
             .child(idUsuarioDestinatario)
     }
 
@@ -109,9 +109,10 @@ class ChatActivity : AppCompatActivity() {
     fun enviarMensagem(view: View) {
         val textoMensagem = editMensagem.text.toString()
         if (textoMensagem.isNotEmpty()) {
-            val mensagem = Mensagem(idUsuarioRementente, textoMensagem, null)
+            val mensagem = Mensagem(idUsuarioRemetente, textoMensagem, null)
             //Salvar mensagem para o remetente
-            salvarMensagem(idUsuarioRementente, idUsuarioDestinatario, mensagem)
+            salvarMensagem(idUsuarioRemetente, idUsuarioDestinatario, mensagem)
+            salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem)
             editMensagem.setText("")
         } else {
             Toast.makeText(
