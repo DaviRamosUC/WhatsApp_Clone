@@ -53,7 +53,7 @@
                 tools:ignore="TextContrastCheck,SpeakableTextPresentCheck" />
 
             <ImageView
-                android:id="@+id/image"
+                android:id="@+id/imageCamera"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:contentDescription="@string/contentDescription"
