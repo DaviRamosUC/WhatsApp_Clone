@@ -2,20 +2,25 @@ package com.devdavi.whatsapp.model
 
 import com.devdavi.whatsapp.utils.FirebaseConfig
 import com.google.firebase.database.Exclude
+import java.io.Serializable
 
 data class Conversa(
-    @Exclude
-    val idRemetente: String,
-    @Exclude
-    val idDestinatario: String,
+    @get:Exclude
+    val idRemetente: String?,
+    @get:Exclude
+    val idDestinatario: String?,
     val ultimaMensagem: String?,
-    val usuarioExibicao: Usuario
-) {
+    val usuarioExibicao: Usuario?
+) : Serializable {
+
+
+    constructor() : this(null, null, null, null)
+
     fun salvar() {
         val database = FirebaseConfig.database.reference
         val conversaRef = database.child("conversas")
-        conversaRef.child(idRemetente)
-            .child(idDestinatario)
+        conversaRef.child(idRemetente!!)
+            .child(idDestinatario!!)
             .setValue(this)
     }
 }

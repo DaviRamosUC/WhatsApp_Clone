@@ -156,14 +156,10 @@ class ChatActivity : AppCompatActivity() {
                                 mensagem.idUsuario = idUsuarioRemetente
                                 mensagem.mensagem = "imagem.jpeg"
                                 mensagem.imagem = url.toString()
-                                //Salva a mensagem para o remetente
+                                //Salva a imagem para o remetente
                                 salvarMensagem(idUsuarioRemetente, idUsuarioDestinatario, mensagem)
-                                //Salva a mensagem para o destinatário
+                                //Salva a imagem para o destinatário
                                 salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem)
-
-                                //Salva a conversa
-                                salvarConversa(mensagem)
-
 
                             }
                         }
@@ -184,13 +180,13 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun salvarConversa(mensagem: Mensagem) {
-        val conversaRemetente =
-            Conversa(
-                idUsuarioRemetente,
-                idUsuarioDestinatario,
-                mensagem.mensagem,
-                usuarioDestinatario
-            ).salvar()
+        Conversa(
+            idUsuarioRemetente,
+            idUsuarioDestinatario,
+            mensagem.mensagem,
+            usuarioDestinatario
+        ).salvar()
+
     }
 
     override fun onStart() {
@@ -209,7 +205,10 @@ class ChatActivity : AppCompatActivity() {
             val mensagem = Mensagem(idUsuarioRemetente, textoMensagem, null)
             //Salvar mensagem para o remetente
             salvarMensagem(idUsuarioRemetente, idUsuarioDestinatario, mensagem)
+            //Salvar mensagem para o destinatario
             salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem)
+            //Salva a conversa
+            salvarConversa(mensagem)
             editMensagem.setText("")
         } else {
             Toast.makeText(
