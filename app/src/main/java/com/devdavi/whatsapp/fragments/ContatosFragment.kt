@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.devdavi.whatsapp.activity.ChatActivity
+import com.devdavi.whatsapp.activity.GrupoActivity
 import com.devdavi.whatsapp.adapter.ContatosAdapter
 import com.devdavi.whatsapp.databinding.FragmentContatosBinding
 import com.devdavi.whatsapp.model.Usuario
@@ -62,9 +63,14 @@ class ContatosFragment : Fragment() {
                 object : RecyclerItemClickListener.OnItemClickListener {
                     override fun onItemClick(view: View?, position: Int) {
                         val usuarioSelecionado = listaContatos[position]
-                        val intent = Intent(activity, ChatActivity::class.java)
-                        intent.putExtra("chatContato", usuarioSelecionado)
-                        startActivity(intent)
+
+                        if (usuarioSelecionado.email?.isEmpty()!!) {
+                            startActivity(Intent(activity, GrupoActivity::class.java))
+                        } else {
+                            val intent = Intent(activity, ChatActivity::class.java)
+                            intent.putExtra("chatContato", usuarioSelecionado)
+                            startActivity(intent)
+                        }
                     }
 
                     override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -79,6 +85,13 @@ class ContatosFragment : Fragment() {
 
             )
         )
+
+        /*Define usuário com e-mail vazio
+        *em caso de e-mail vazio o usuário será utilizado como
+        * cabeçalho, exibindo novo grupo */
+        val itemGrupo =
+            Usuario(nome = "Novo Grupo", id = null, email = "", senha = null, foto = null)
+        listaContatos.add(itemGrupo)
 
         return binding.root
     }

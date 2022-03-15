@@ -31,7 +31,10 @@ class ContatosAdapter(listaContatos: ArrayList<Usuario>, c: Context?) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val usuario: Usuario = listaContatos.get(position)
+        val usuario: Usuario = listaContatos[position]
+        val cabecalho = usuario.email?.isEmpty()
+
+
         holder.nome.text = usuario.nome
         holder.email.text = usuario.email
 
@@ -39,7 +42,12 @@ class ContatosAdapter(listaContatos: ArrayList<Usuario>, c: Context?) :
             val uri = Uri.parse(usuario.foto)
             Glide.with(context!!).load(uri).into(holder.foto)
         } else {
-            holder.foto.setImageResource(R.drawable.padrao)
+            if (cabecalho!!) {
+                holder.foto.setImageResource(R.drawable.icone_grupo)
+                holder.email.visibility = View.GONE
+            } else {
+                holder.foto.setImageResource(R.drawable.padrao)
+            }
         }
     }
 
