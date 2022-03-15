@@ -6,6 +6,7 @@
         android:id="@+id/menuPesquisa"
         android:icon="@drawable/ic_pesquisa_branco_24"
         android:title="@string/pesquisar_menu"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menuConfiguracoes"

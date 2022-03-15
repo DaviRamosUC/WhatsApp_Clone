@@ -2,6 +2,7 @@ package com.devdavi.whatsapp.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -90,6 +91,26 @@ class ConversasFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         conversasRef.removeEventListener(childEventListener)
+    }
+
+    fun pesquisarConversas(texto: String) {
+        val listaConversasBusca = ArrayList<Conversa>()
+        for (conversa in listaConversas) {
+            val nome = conversa.usuarioExibicao!!.nome!!.lowercase()
+            val ultimaMsg = conversa.ultimaMensagem!!.lowercase()
+            if (nome.contains(texto) || ultimaMsg.contains(texto)) {
+                listaConversasBusca.add(conversa)
+            }
+        }
+        adapter = ConversasAdapter(listaConversasBusca, context)
+        recyclerViewConversas.adapter = adapter
+        adapter.notifyDataSetChanged()
+    }
+
+    fun recarregarConversas() {
+        adapter = ConversasAdapter(listaConversas, context)
+        recyclerViewConversas.adapter = adapter
+        adapter.notifyDataSetChanged()
     }
 
     fun recuperarConversas() {

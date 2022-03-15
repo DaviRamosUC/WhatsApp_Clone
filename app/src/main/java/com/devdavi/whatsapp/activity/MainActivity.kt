@@ -5,10 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Adapter
+import android.widget.SearchView
 import android.widget.Toast
+import androidx.core.view.get
 import com.devdavi.whatsapp.R
 import com.devdavi.whatsapp.adapter.FragmentAdapter
 import com.devdavi.whatsapp.databinding.ActivityMainBinding
+import com.devdavi.whatsapp.fragments.ConversasFragment
 import com.devdavi.whatsapp.utils.FirebaseConfig
 import com.google.android.material.tabs.TabLayoutMediator
 import java.lang.Exception
@@ -17,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var autenticacao = FirebaseConfig.autenticacao
+    private var searchView: androidx.appcompat.widget.SearchView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +50,35 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_main, menu)
+
+        val menuItem = menu?.findItem(R.id.menuPesquisa)
+        searchView = menuItem!!.actionView as androidx.appcompat.widget.SearchView?
+        searchView?.queryHint = "Digite algo que deseja pesquisar"
+
+        //Listener para o search view
+        searchView?.setOnCloseListener {
+            val fragment: ConversasFragment =
+                supportFragmentManager.findFragmentByTag("f" + binding.viewPager.currentItem) as ConversasFragment
+            fragment.recarregarConversas()
+            false
+        }
+
+        //Listener para a caixa de texto
+        searchView?.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                val fragment: ConversasFragment =
+                    supportFragmentManager.findFragmentByTag("f" + binding.viewPager.currentItem) as ConversasFragment
+                if (newText != null && newText.isNotEmpty()) {
+                    fragment.pesquisarConversas(newText.lowercase())
+                }
+                return true
+            }
+        })
         return super.onCreateOptionsMenu(menu)
     }
 

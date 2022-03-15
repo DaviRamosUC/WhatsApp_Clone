@@ -20,6 +20,4 @@
             app:popupTheme="@style/Theme.WhatsApp.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
-
-
 </LinearLayout>
