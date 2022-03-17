@@ -28,6 +28,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WhatsApp.NoActionBar">
         <activity
+            android:name=".activity.CadastroGrupoActivity"
+            android:exported="false"
+            android:label="@string/title_activity_cadastro_grupo"
+            android:parentActivityName=".activity.GrupoActivity"
+            android:theme="@style/Theme.WhatsApp.NoActionBar.NoActionBar" />
+        <activity
             android:name=".activity.GrupoActivity"
             android:exported="false"
             android:label="@string/title_activity_grupo"

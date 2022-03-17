@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.GrupoActivity">
+    tools:context=".activity.CadastroGrupoActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -21,8 +21,8 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <include
-        android:id="@+id/content_grupo"
-        layout="@layout/content_grupo" />
+        android:id="@+id/content_cadastro_grupo"
+        layout="@layout/content_cadastro_grupo" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -31,9 +31,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
-        app:fabSize="normal"
-        android:contentDescription="@string/email_login"
-        app:tint="@color/white"
-        app:srcCompat="@drawable/ic_seta_proximo_branca_24" />
+        android:contentDescription="@string/contatos_toolbar"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

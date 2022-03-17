@@ -1,8 +1,10 @@
 package com.devdavi.whatsapp.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Toast
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +23,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import java.io.Serializable
 
 class GrupoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGrupoBinding
@@ -42,9 +45,19 @@ class GrupoActivity : AppCompatActivity() {
         toolbar = binding.toolbar
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        binding.fab.setOnClickListener {
+            if (listaMembrosSelecionados.size >= 3) {
+                val intent = Intent(applicationContext, CadastroGrupoActivity::class.java)
+                intent.putExtra("membros", listaMembrosSelecionados as Serializable)
+                startActivity(intent)
+            }
+            else {
+                Toast.makeText(
+                    applicationContext,
+                    "Adicione ao menos 3 pessoas para o grupo",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
 
         usuarioAtual = Helpers.getUsuarioAtual()!!
@@ -127,11 +140,12 @@ class GrupoActivity : AppCompatActivity() {
 
     }
 
-    fun atualizarMembrosToolbar(){
+    fun atualizarMembrosToolbar() {
         val totalSelecionados = listaMembrosSelecionados.size
         val total = listaMembros.size + totalSelecionados
         toolbar.title = "$totalSelecionados de $total selecionados"
     }
+
     override fun onStop() {
         super.onStop()
         usuariosRef.removeEventListener(valueEventListener)

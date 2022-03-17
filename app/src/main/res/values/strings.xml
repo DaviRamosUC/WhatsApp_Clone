@@ -29,4 +29,5 @@
     <string name="contentDescription">Icon for fab</string>
     <string name="exemplo_de_mensagem">Este é um exemplo de mensagem</string>
     <string name="title_activity_grupo">GrupoActivity</string>
+    <string name="title_activity_cadastro_grupo">CadastroGrupoActivity</string>
 </resources>
