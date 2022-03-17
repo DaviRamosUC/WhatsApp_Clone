@@ -3,9 +3,11 @@ package com.devdavi.whatsapp.activity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.devdavi.whatsapp.R
 import com.devdavi.whatsapp.adapter.ContatosAdapter
 import com.devdavi.whatsapp.adapter.GrupoSelecionadoAdapter
 import com.devdavi.whatsapp.databinding.ActivityGrupoBinding
@@ -31,11 +33,13 @@ class GrupoActivity : AppCompatActivity() {
     private lateinit var usuarioAtual: FirebaseUser
     private val listaMembros = ArrayList<Usuario>()
     private val listaMembrosSelecionados = ArrayList<Usuario>()
+    private lateinit var toolbar: androidx.appcompat.widget.Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGrupoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        toolbar = binding.toolbar
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.fab.setOnClickListener { view ->
@@ -71,6 +75,7 @@ class GrupoActivity : AppCompatActivity() {
 
                         listaMembrosSelecionados.add(usuarioSelecionado)
                         grupoSelecionadoAdapter.notifyDataSetChanged()
+                        atualizarMembrosToolbar()
                     }
 
                     override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -94,8 +99,39 @@ class GrupoActivity : AppCompatActivity() {
         recyclerMembrosSelecionados.setHasFixedSize(true)
         recyclerMembrosSelecionados.adapter = grupoSelecionadoAdapter
 
+        recyclerMembrosSelecionados.addOnItemTouchListener(
+            RecyclerItemClickListener(
+                applicationContext,
+                recyclerMembrosSelecionados,
+                object : RecyclerItemClickListener.OnItemClickListener {
+                    override fun onItemClick(view: View?, position: Int) {
+                        val usuario = listaMembrosSelecionados[position]
+                        listaMembrosSelecionados.remove(usuario)
+                        grupoSelecionadoAdapter.notifyDataSetChanged()
+
+                        listaMembros.add(usuario)
+                        contatosAdapter.notifyDataSetChanged()
+                        atualizarMembrosToolbar()
+                    }
+
+                    override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun onLongItemClick(view: View?, position: Int) {
+                        TODO("Not yet implemented")
+                    }
+                }
+            )
+        )
+
     }
 
+    fun atualizarMembrosToolbar(){
+        val totalSelecionados = listaMembrosSelecionados.size
+        val total = listaMembros.size + totalSelecionados
+        toolbar.title = "$totalSelecionados de $total selecionados"
+    }
     override fun onStop() {
         super.onStop()
         usuariosRef.removeEventListener(valueEventListener)
@@ -119,6 +155,7 @@ class GrupoActivity : AppCompatActivity() {
 
                 }
                 contatosAdapter.notifyDataSetChanged()
+                atualizarMembrosToolbar()
             }
 
             override fun onCancelled(error: DatabaseError) {
