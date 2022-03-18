@@ -31,7 +31,9 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
+        app:fabSize="normal"
+        app:tint="@color/white"
         android:contentDescription="@string/contatos_toolbar"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@drawable/ic_confirmar_branco_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
